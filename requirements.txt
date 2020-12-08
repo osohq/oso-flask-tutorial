@@ -3,5 +3,5 @@ pytest
 werkzeug
 dataclasses
 blinker
-oso==0.8
+oso
 
