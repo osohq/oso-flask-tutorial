@@ -1,6 +1,3 @@
-import pdb
-from .conftest import test_client
-
 def test_guest(test_client):
     resp = test_client.get("/")
     assert resp.status_code == 200
