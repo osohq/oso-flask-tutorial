@@ -26,6 +26,8 @@ jobs:
         working-directory: oso
       - run: make package
         working-directory: oso/languages/python/oso
+      - run: pip install -e .
+        working-directory: oso/languages/python/oso
       - run: pip install -r requirements.txt
         working-directory: oso-flask-tutorial
       - run: sqlite3 expenses.db ".read expenses.sql"
