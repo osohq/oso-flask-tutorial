@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 from datetime import datetime
-from flask import Blueprint, g, jsonify, request
+from flask import Blueprint, g, request
 from werkzeug.exceptions import BadRequest, NotFound
 
 from .authorization import authorize
@@ -29,7 +29,13 @@ class Expense:
             INSERT INTO expenses (amount, description, user_id, created_at, updated_at)
                 VALUES(?, ?, ?, ?, ?) 
         """,
-            [self.amount, self.description, self.user_id, now, now,],
+            [
+                self.amount,
+                self.description,
+                self.user_id,
+                now,
+                now,
+            ],
         )
         self.id = id
 

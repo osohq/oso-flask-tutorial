@@ -1,15 +1,11 @@
 """Entrypoint to the expenses application"""
 
-import flask
-from flask import g, Flask
-import os
-from oso import Oso
+from flask import Flask
 
 from . import authorization, db, expense, organization, user
 
 
 app = Flask(__name__)
-oso = Oso()
 
 
 def create_app(test_config=None):

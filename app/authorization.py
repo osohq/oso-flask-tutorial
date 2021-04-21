@@ -1,5 +1,4 @@
 from flask import current_app, g, request, Blueprint
-from flask.wrappers import Request
 from oso import Oso
 from werkzeug.exceptions import Forbidden
 

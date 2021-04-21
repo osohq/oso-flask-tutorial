@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from flask import Blueprint, jsonify
+from flask import Blueprint
 from werkzeug.exceptions import NotFound
 
 from .authorization import authorize
@@ -19,7 +19,9 @@ class Organization:
     def lookup(cls, id: int):
         """Lookup an organization from the DB by id"""
         record = query_db(
-            "select id, name from organizations where id  = ?", [id], one=True,
+            "select id, name from organizations where id  = ?",
+            [id],
+            one=True,
         )
         if record is None:
             raise NotFound()
