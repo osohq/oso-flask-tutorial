@@ -18,8 +18,6 @@ def create_app(test_config=None):
     app.register_blueprint(expense.bp)
     # register organizations routes
     app.register_blueprint(organization.bp)
-    # register authorization handlers
-    app.register_blueprint(authorization.bp)
 
     authorization.init_oso(app)
 
