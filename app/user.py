@@ -27,7 +27,7 @@ class User(Actor):
     @classmethod
     def get(cls, id: int):
         record = query_db(
-            "select id, email, title, location_id, organization_id, manager_id from users where email  = ?",
+            "select id, email, title, location_id, organization_id, manager_id from users where id = ?",
             [id],
             one=True,
         )
@@ -39,7 +39,7 @@ class User(Actor):
     @classmethod
     def lookup(cls, email: str):
         record = query_db(
-            "select id, email, title, location_id, organization_id, manager_id from users where email  = ?",
+            "select id, email, title, location_id, organization_id, manager_id from users where email = ?",
             [email],
             one=True,
         )

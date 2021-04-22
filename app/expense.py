@@ -43,7 +43,7 @@ class Expense:
     def lookup(cls, id: int):
         """Lookup an expense from the DB by id"""
         record = query_db(
-            "select id, amount, description, user_id from expenses where id  = ?",
+            "select id, amount, description, user_id from expenses where id = ?",
             [id],
             one=True,
         )
