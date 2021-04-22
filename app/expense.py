@@ -55,7 +55,7 @@ class Expense:
 @bp.route("/<int:id>", methods=["GET"])
 def get_expense(id):
     expense = Expense.lookup(id)
-    return str(authorize("read", expense))
+    return str(authorize("read", expense)) + "\n"
 
 
 @bp.route("/submit", methods=["PUT"])
@@ -67,4 +67,4 @@ def submit_expense():
     expense_data.setdefault("user_id", g.current_user.id)
     expense = Expense(**expense_data)
     expense.save()
-    return str(expense)
+    return str(expense) + "\n", 201

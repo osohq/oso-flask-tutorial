@@ -31,4 +31,4 @@ class Organization:
 @bp.route("/<int:id>", methods=["GET"])
 def get_organization(id):
     organization = Organization.lookup(id)
-    return str(authorize("read", organization))
+    return str(authorize("read", organization)) + "\n"
