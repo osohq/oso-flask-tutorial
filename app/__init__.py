@@ -2,7 +2,7 @@
 
 from flask import Flask
 
-from . import authorization, db, expense, organization, user
+from . import db, expense, organization, user
 
 
 def create_app():
@@ -18,8 +18,6 @@ def create_app():
     app.register_blueprint(expense.bp)
     # register organizations routes
     app.register_blueprint(organization.bp)
-
-    authorization.init_oso(app)
 
     return app
 

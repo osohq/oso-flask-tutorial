@@ -2,7 +2,6 @@ from dataclasses import dataclass
 from flask import Blueprint
 from werkzeug.exceptions import NotFound
 
-from .authorization import authorize
 from .db import query_db
 
 bp = Blueprint("organization", __name__, url_prefix="/organizations")
@@ -31,4 +30,4 @@ class Organization:
 @bp.route("/<int:id>", methods=["GET"])
 def get_organization(id):
     organization = Organization.lookup(id)
-    return str(authorize("read", organization)) + "\n"
+    return str(organization) + "\n"

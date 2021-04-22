@@ -3,5 +3,3 @@ pytest
 werkzeug
 dataclasses
 blinker
-oso
-

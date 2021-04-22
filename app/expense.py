@@ -3,7 +3,6 @@ from datetime import datetime
 from flask import Blueprint, g, request
 from werkzeug.exceptions import BadRequest, NotFound
 
-from .authorization import authorize
 from .db import query_db
 from .user import User
 
@@ -55,7 +54,7 @@ class Expense:
 @bp.route("/<int:id>", methods=["GET"])
 def get_expense(id):
     expense = Expense.lookup(id)
-    return str(authorize("read", expense)) + "\n"
+    return str(expense) + "\n"
 
 
 @bp.route("/", methods=["POST"])
