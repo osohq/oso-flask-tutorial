@@ -58,7 +58,7 @@ def get_expense(id):
     return str(authorize("read", expense)) + "\n"
 
 
-@bp.route("/submit", methods=["PUT"])
+@bp.route("/", methods=["POST"])
 def submit_expense():
     expense_data = request.get_json(force=True)
     if not expense_data:
