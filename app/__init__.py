@@ -5,7 +5,7 @@ from flask import Flask
 from . import authorization, db, expense, organization, user
 
 
-def create_app(test_config=None):
+def create_app():
     # create and configure the app
     app = Flask(__name__)
     app.config.from_mapping(DATABASE="expenses.db")
