@@ -5,6 +5,7 @@ from werkzeug.exceptions import BadRequest, NotFound
 
 from .db import query_db
 from .user import User
+from .authorization import authorize
 
 bp = Blueprint("expense", __name__, url_prefix="/expenses")
 
@@ -54,7 +55,7 @@ class Expense:
 @bp.route("/<int:id>", methods=["GET"])
 def get_expense(id):
     expense = Expense.lookup(id)
-    return str(expense) + "\n"
+    return str(authorize("view", expense)) + "\n"
 
 
 @bp.route("/", methods=["POST"])
