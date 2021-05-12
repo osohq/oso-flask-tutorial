@@ -13,6 +13,7 @@ def init_oso(app):
     oso.load_file("app/authorization.polar")
 
 
+# start-authorize
 from flask import current_app, g
 from werkzeug.exceptions import Forbidden
 
