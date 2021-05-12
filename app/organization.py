@@ -1,8 +1,7 @@
 from dataclasses import dataclass
-from flask import Blueprint, jsonify
+from flask import Blueprint
 from werkzeug.exceptions import NotFound
 
-from .authorization import authorize
 from .db import query_db
 
 bp = Blueprint("organization", __name__, url_prefix="/organizations")
@@ -19,7 +18,9 @@ class Organization:
     def lookup(cls, id: int):
         """Lookup an organization from the DB by id"""
         record = query_db(
-            "select id, name from organizations where id  = ?", [id], one=True,
+            "select id, name from organizations where id  = ?",
+            [id],
+            one=True,
         )
         if record is None:
             raise NotFound()
@@ -29,4 +30,4 @@ class Organization:
 @bp.route("/<int:id>", methods=["GET"])
 def get_organization(id):
     organization = Organization.lookup(id)
-    return str(authorize("read", organization))
+    return str(organization) + "\n"

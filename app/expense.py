@@ -1,9 +1,8 @@
 from dataclasses import dataclass
 from datetime import datetime
-from flask import Blueprint, g, jsonify, request
+from flask import Blueprint, g, request
 from werkzeug.exceptions import BadRequest, NotFound
 
-from .authorization import authorize
 from .db import query_db
 from .user import User
 
@@ -29,7 +28,13 @@ class Expense:
             INSERT INTO expenses (amount, description, user_id, created_at, updated_at)
                 VALUES(?, ?, ?, ?, ?) 
         """,
-            [self.amount, self.description, self.user_id, now, now,],
+            [
+                self.amount,
+                self.description,
+                self.user_id,
+                now,
+                now,
+            ],
         )
         self.id = id
 
@@ -37,7 +42,7 @@ class Expense:
     def lookup(cls, id: int):
         """Lookup an expense from the DB by id"""
         record = query_db(
-            "select id, amount, description, user_id from expenses where id  = ?",
+            "select id, amount, description, user_id from expenses where id = ?",
             [id],
             one=True,
         )
@@ -49,10 +54,10 @@ class Expense:
 @bp.route("/<int:id>", methods=["GET"])
 def get_expense(id):
     expense = Expense.lookup(id)
-    return str(authorize("read", expense))
+    return str(expense) + "\n"
 
 
-@bp.route("/submit", methods=["PUT"])
+@bp.route("/", methods=["POST"])
 def submit_expense():
     expense_data = request.get_json(force=True)
     if not expense_data:
@@ -61,4 +66,4 @@ def submit_expense():
     expense_data.setdefault("user_id", g.current_user.id)
     expense = Expense(**expense_data)
     expense.save()
-    return str(expense)
+    return str(expense) + "\n", 201

@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 from flask import current_app, g, request, Blueprint
-from werkzeug.exceptions import Unauthorized
+from werkzeug.exceptions import NotFound, Unauthorized
 
 from .db import query_db
 
@@ -27,26 +27,26 @@ class User(Actor):
     @classmethod
     def get(cls, id: int):
         record = query_db(
-            "select id, email, title, location_id, organization_id, manager_id from users where id  = ?",
+            "select id, email, title, location_id, organization_id, manager_id from users where id = ?",
             [id],
             one=True,
         )
         if record:
             return cls(**record)
         else:
-            raise Exception("user not found")
+            raise NotFound()
 
     @classmethod
     def lookup(cls, email: str):
         record = query_db(
-            "select id, email, title, location_id, organization_id, manager_id from users where email  = ?",
+            "select id, email, title, location_id, organization_id, manager_id from users where email = ?",
             [email],
             one=True,
         )
         if record:
             return cls(**record)
         else:
-            raise Exception("user not found")
+            raise NotFound()
 
 
 class Guest(Actor):
@@ -69,15 +69,3 @@ def set_current_user():
                 return Unauthorized("user not found")
         else:
             g.current_user = Guest()
-
-
-@bp.route("/whoami")
-def whoami():
-    you = g.current_user
-    if isinstance(you, User):
-        organization = query_db(
-            "select name from organizations where id = ?",
-            [you.organization_id],
-            one=True,
-        )["name"]
-        return f"You are {you.email}, the {you.title} at {organization}. (User ID: {you.id})"

@@ -1,6 +1,4 @@
 from flask import current_app, g, Blueprint
-import logging
-import os
 import sqlite3
 
 
