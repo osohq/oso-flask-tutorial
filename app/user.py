@@ -20,16 +20,11 @@ class User(Actor):
     id: int
     email: str
     title: str
-    location_id: int
-    organization_id: int
-    manager_id: int
 
     @classmethod
     def get(cls, id: int):
         record = query_db(
-            "select id, email, title, location_id, organization_id, manager_id from users where id = ?",
-            [id],
-            one=True,
+            "select id, email, title from users where id = ?", [id], one=True
         )
         if record:
             return cls(**record)
@@ -39,9 +34,7 @@ class User(Actor):
     @classmethod
     def lookup(cls, email: str):
         record = query_db(
-            "select id, email, title, location_id, organization_id, manager_id from users where email = ?",
-            [email],
-            one=True,
+            "select id, email, title from users where email = ?", [email], one=True
         )
         if record:
             return cls(**record)

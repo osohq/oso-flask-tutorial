@@ -2,7 +2,7 @@
 
 from flask import Flask
 
-from . import db, expense, organization, user
+from . import db, expense, user
 
 
 def create_app():
@@ -16,8 +16,6 @@ def create_app():
     app.register_blueprint(user.bp)
     # register expenses routes
     app.register_blueprint(expense.bp)
-    # register organizations routes
-    app.register_blueprint(organization.bp)
 
     return app
 
