@@ -55,7 +55,9 @@ class Expense:
 @bp.route("/<int:id>", methods=["GET"])
 def get_expense(id):
     expense = Expense.lookup(id)
+    # docs: begin-getting-started-app-highlight
     return str(authorize("view", expense)) + "\n"
+    # docs: end-getting-started-app-highlight
 
 
 @bp.route("/", methods=["POST"])

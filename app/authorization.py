@@ -10,7 +10,9 @@ def init_oso(app):
     oso.register_class(Expense)
     app.oso = oso  # (4)
 
+    # docs: begin-authorization-highlight
     oso.load_file("app/authorization.polar")
+    # docs: end-authorization-highlight
 
 
 # start-authorize
