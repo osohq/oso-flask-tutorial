@@ -8,3 +8,12 @@ def test_user(test_client):
     resp = test_client.get("/expenses/2", headers={"user": "alice@foo.com"})
     assert resp.status_code == 200
     assert resp.data.decode().startswith("Expense")
+
+def test_accountant(test_client):
+    resp = test_client.get("/expenses/1", headers={"user": "bhavik@foo.com"})
+    assert resp.status_code == 200
+    assert resp.data.decode().startswith("Expense")
+
+    resp = test_client.get("/expenses/2", headers={"user": "bhavik@foo.com"})
+    assert resp.status_code == 200
+    assert resp.data.decode().startswith("Expense")
