@@ -27,7 +27,7 @@ class Expense:
         id = query_db(
             """
             INSERT INTO expenses (amount, description, user_id, created_at, updated_at)
-                VALUES(?, ?, ?, ?, ?) 
+                VALUES(?, ?, ?, ?, ?)
         """,
             [
                 self.amount,
@@ -56,7 +56,7 @@ class Expense:
 def get_expense(id):
     expense = Expense.lookup(id)
     # docs: begin-getting-started-app-highlight
-    return str(authorize("view", expense)) + "\n"
+    return str(authorize("read", expense)) + "\n"
     # docs: end-getting-started-app-highlight
 
 

@@ -1,4 +1,4 @@
-allow(user: User, "view", expense: Expense) if
+allow(user: User, "read", expense: Expense) if
     user.id = expense.user_id;
 
 user_in_role(user: User, "accountant") if
